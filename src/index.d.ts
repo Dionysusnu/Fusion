@@ -10,7 +10,7 @@ import { Compat } from "./State/Compat";
 import { Computed } from "./State/Computed";
 import { ComputedPairs } from "./State/ComputedPairs";
 import { State } from "./State/State";
-import { Animatable, Error } from "./Types";
+import { Animatable, Error, StateOrValue } from "./Types";
 
 // Fusion Lua
 declare namespace Fusion {
@@ -34,6 +34,25 @@ declare namespace Fusion {
 		props: NewProperties<Instances[T]>,
 		children: ChildrenValue,
 	): Instances[T];
+
+	export type JsxInstanceProperties<T extends Instance> = {
+		[P in Exclude<WritablePropertyNames<T>, "OnChange" | "OnEvent" | "Children">]?:
+			| StateOrValue<T[P]>
+			| Computed<T[P]>
+			| Compat<T[P]>
+			| (T[P] extends Animatable ? Spring<T> | Tween<T> : never);
+	};
+
+	export type JsxInstanceEvents<T extends Instance> = {
+		[K in ExtractKeys<T, RBXScriptSignal>]?: T[K] extends RBXScriptSignal<infer C>
+			? (...args: Parameters<C>) => void
+			: never;
+	};
+
+	export type JsxInstance<T extends Instance> = JsxInstanceProperties<T> & {
+		OnChange?: JsxInstanceProperties<T>;
+		OnEvent?: JsxInstanceEvents<T>;
+	};
 }
 
 export = Fusion;
