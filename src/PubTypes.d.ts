@@ -1,4 +1,4 @@
-// PubTypes that can be expressed as vectors of numbers, and so can be animated.
+/* Types that can be expressed as vectors of numbers, and so can be animated. */
 export type Animatable =
 	| number
 	| CFrame
@@ -19,19 +19,28 @@ export type Animatable =
 	| Vector3
 	| Vector3int16;
 
-// A graph object which can have dependents.
+/* A task which can be accepted for cleanup. */
+export type Task =
+	| Instance
+	| RBXScriptConnection
+	| (() => void)
+	| { destroy: () => void }
+	| { Destroy: () => void }
+	| Array<Task>;
+
+/* A graph object which can have dependents. */
 export type Dependency = {
 	dependentSet: Set<Dependent>;
 };
 
-// A graph object which can have dependencies.
+/* A graph object which can have dependencies. */
 export type Dependent = {
 	update: (dependent: Dependent) => boolean;
 	dependencySet: Set<Dependency>;
 };
 
 // Internal note: Remember to also change this in New.d.ts
-// An object which stores a piece of reactive state.
+/* An object which stores a piece of reactive state. */
 export type StateObject<T> = {
 	type: "State";
 	kind: string;

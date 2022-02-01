@@ -1,5 +1,5 @@
 import { ChildrenSymbol } from "../Instances/Children";
-import { Dependency, StateObject } from "../PubTypes";
+import { StateObject } from "../PubTypes";
 import { OnChangeSymbol } from "./OnChange";
 import { OnEventSymbol } from "./OnEvent";
 
