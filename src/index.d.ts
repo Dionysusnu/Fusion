@@ -1,24 +1,52 @@
 import { Spring } from "./Animation/Spring";
 import { Tween } from "./Animation/Tween";
 import { Children } from "./Instances/Children";
-import { ChildrenValue, New, NewProperties } from "./Instances/New";
+import { Cleanup } from "./Instances/Cleanup";
+import { Hydrate } from "./Instances/Hydrate";
+import { New } from "./Instances/New";
 import { OnChange } from "./Instances/OnChange";
 import { OnEvent } from "./Instances/OnEvent";
-import { Animatable, CanBeState, StateObject, Version } from "./PubTypes";
+import {
+	Animatable,
+	CanBeState,
+	ChildrenValue,
+	Dependency,
+	Dependent,
+	PropertyTable,
+	SemiWeakRef,
+	SpecialKey,
+	StateObject,
+	Task,
+	Version,
+} from "./PubTypes";
 import { Computed } from "./State/Computed";
-import { ComputedPairs } from "./State/ComputedPairs";
+import { ForPairs } from "./State/ForPairs";
 import { Observer } from "./State/Observer";
 import { Value } from "./State/Value";
 
 declare namespace Fusion {
 	// State
-	export { Computed, ComputedPairs, Observer, Value };
+	export { Computed, ForPairs, Observer, Value };
 	// Animation
 	export { Spring, Tween };
-	// Types
-	export { Animatable, CanBeState, StateObject, Version };
+	// Types (namespace does not allow export *)
+	export {
+		Animatable,
+		CanBeState,
+		ChildrenValue,
+		Dependency,
+		Dependent,
+		PropertyTable,
+		SemiWeakRef,
+		SpecialKey,
+		StateObject,
+		Task,
+		Version,
+	};
+	// Default SpecialKeys
+	export { Children, Cleanup, OnChange, OnEvent };
 	// Instances
-	export { Children, ChildrenValue, New, NewProperties, OnChange, OnEvent };
+	export { Hydrate, New };
 	// Misc
 	export const version: Version;
 }

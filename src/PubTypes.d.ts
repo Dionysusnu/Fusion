@@ -1,4 +1,12 @@
-/* Types that can be expressed as vectors of numbers, and so can be animated. */
+import { ChildrenSymbol } from "./Instances/Children";
+import { CleanupSymbol } from "./Instances/Cleanup";
+import { OnChangeSymbol } from "./Instances/OnChange";
+import { OnEventSymbol } from "./Instances/OnEvent";
+import { OutSymbol } from "./Instances/Out";
+import { RefSymbol } from "./Instances/Ref";
+import { Value } from "./State/Value";
+
+/** Types that can be expressed as vectors of numbers, and so can be animated. */
 export type Animatable =
 	| number
 	| CFrame
@@ -19,7 +27,7 @@ export type Animatable =
 	| Vector3
 	| Vector3int16;
 
-/* A task which can be accepted for cleanup. */
+/** A task which can be accepted for cleanup. */
 export type Task =
 	| Instance
 	| RBXScriptConnection
@@ -28,30 +36,82 @@ export type Task =
 	| { Destroy: () => void }
 	| Array<Task>;
 
-/* A graph object which can have dependents. */
+/** Script-readable version information. */
+export type Version = {
+	major: number;
+	minor: number;
+	isRelease: boolean;
+};
+
+/** A graph object which can have dependents. */
 export type Dependency = {
 	dependentSet: Set<Dependent>;
 };
 
-/* A graph object which can have dependencies. */
+/** A graph object which can have dependencies. */
 export type Dependent = {
 	update: (dependent: Dependent) => boolean;
 	dependencySet: Set<Dependency>;
 };
 
-// Internal note: Remember to also change this in New.d.ts
-/* An object which stores a piece of reactive state. */
+// Internal note: Remember to also change this below in ChildrenValue
+/** An object which stores a piece of reactive state. */
 export type StateObject<T> = {
 	type: "State";
 	kind: string;
 	get(asDependency?: boolean): T;
 };
 
+/** Either a constant value of type T, or a state object containing type T. */
 export type CanBeState<T> = StateObject<T> | T;
 
-/* Script-readable version information. */
-export type Version = {
-	major: number;
-	minor: number;
-	isRelease: boolean;
+/** A semi-weak instance reference. */
+export type SemiWeakRef = {
+	type: "SemiWeakRef";
+	instance: Instance | undefined;
 };
+
+/** Denotes children instances in an instance or component's property table. */
+export type SpecialKey = {
+	type: "SpecialKey";
+	kind: string;
+	stage: "self" | "descendants" | "ancestor" | "observer";
+	apply(propValue: any, applyTo: SemiWeakRef, cleanupTasks: Array<Task>): void;
+};
+
+/** A collection of instances that may be parented to another instance. */
+export type ChildrenValue =
+	| Instance
+	// StateObject needs to be written out to prevent circular reference error
+	| {
+			type: "State";
+			kind: string;
+			get(asDependency?: boolean): ChildrenValue;
+	  }
+	| Array<ChildrenValue>
+	| { [K in any]: ChildrenValue }
+	| Map<any, ChildrenValue>
+	| undefined;
+
+/** A table that defines an instance's properties, handlers and children. */
+export type PropertyTable<T extends Instance> = Partial<
+	| {
+			[K in keyof WritableInstanceProperties<T>]:
+				| WritableInstanceProperties<T>[K]
+				| StateObject<WritableInstanceProperties<T>[K]>;
+	  }
+	| {
+			[K in InstancePropertyNames<T> as OnChangeSymbol<K>]: (newValue: T[K]) => void;
+	  }
+	| {
+			[K in InstancePropertyNames<T> as OutSymbol<K>]: Value<T[K]>;
+	  }
+	| {
+			[K in InstanceEventNames<T> as OnEventSymbol<K>]: T[K] extends RBXScriptSignal<infer C>
+				? (...args: Parameters<C>) => void
+				: never;
+	  }
+	| Record<ChildrenSymbol, ChildrenValue>
+	| Record<CleanupSymbol, Task>
+	| Record<RefSymbol, Value<Instance | undefined>>
+>;
