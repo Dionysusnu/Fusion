@@ -6,6 +6,8 @@ import { Hydrate } from "./Instances/Hydrate";
 import { New } from "./Instances/New";
 import { OnChange } from "./Instances/OnChange";
 import { OnEvent } from "./Instances/OnEvent";
+import { Out } from "./Instances/Out";
+import { Ref } from "./Instances/Ref";
 import {
 	Animatable,
 	CanBeState,
@@ -20,13 +22,15 @@ import {
 	Version,
 } from "./PubTypes";
 import { Computed } from "./State/Computed";
+import { ForKeys } from "./State/ForKeys";
 import { ForPairs } from "./State/ForPairs";
+import { ForValues } from "./State/ForValues";
 import { Observer } from "./State/Observer";
 import { Value } from "./State/Value";
 
 declare namespace Fusion {
 	// State
-	export { Computed, ForPairs, Observer, Value };
+	export { Computed, ForKeys, ForPairs, ForValues, Observer, Value };
 	// Animation
 	export { Spring, Tween };
 	// Types (namespace does not allow export *)
@@ -44,7 +48,7 @@ declare namespace Fusion {
 		Version,
 	};
 	// Default SpecialKeys
-	export { Children, Cleanup, OnChange, OnEvent };
+	export { Children, Cleanup, OnChange, OnEvent, Out, Ref };
 	// Instances
 	export { Hydrate, New };
 	// Misc
