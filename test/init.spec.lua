@@ -9,14 +9,19 @@ return function()
 			version = "table",
 
 			New = "function",
+			Hydrate = "function",
 			Ref = "table",
+			Out = "function",
+			Cleanup = "table",
 			Children = "table",
 			OnEvent = "function",
 			OnChange = "function",
 
 			Value = "function",
 			Computed = "function",
-			ComputedPairs = "function",
+			ForPairs = "function",
+			ForKeys = "function",
+			ForValues = "function",
 			Observer = "function",
 
 			Tween = "function",
