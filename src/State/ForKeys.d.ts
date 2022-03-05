@@ -1,5 +1,15 @@
 import { CanBeState } from "../PubTypes";
+import { KeyType } from "../Types";
 
+type MapInputValue<In, OutValue> = In extends Array<any>
+	? Array<OutValue>
+	: In extends Map<infer K, any>
+	? Map<K, OutValue>
+	: In extends Set<infer K>
+	? Map<K, OutValue>
+	: In extends Record<infer K, any>
+	? Record<K, OutValue>
+	: Record<keyof In, OutValue>;
 export declare interface ForKeys<T> {
 	type: "State";
 	kind: "ForKeys";
@@ -20,7 +30,7 @@ export declare interface ForKeys<T> {
  * when running the processor to the destructor when the created object is cleaned up.
  */
 export declare function ForKeys<In, Out, Meta>(
-	input: CanBeState<Set<In>>,
-	processor: (key: In) => Out | LuaTuple<[Out, Meta]>,
+	input: CanBeState<In>,
+	processor: (key: KeyType<In>) => Out | LuaTuple<[Out, Meta]>,
 	destructor?: (key: Out, meta: Meta) => void,
-): ForKeys<Set<Out>>;
+): ForKeys<MapInputValue<In, Out>>;

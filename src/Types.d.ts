@@ -9,3 +9,22 @@ export type KeepArrayMapOrRecord<I, NewKey, NewValue> = I extends Array<infer V>
 	: I extends Map<infer K, any>
 	? Map<NewKey, NewValue>
 	: Record<keyof I, NewValue>;
+
+export type KeyType<T> = T extends Array<any>
+	? number
+	: T extends Map<infer K, any>
+	? K
+	: T extends Set<infer K>
+	? K
+	: T extends Record<infer K, any>
+	? K
+	: keyof T;
+export type ValueType<T> = T extends Array<infer V>
+	? V
+	: T extends Map<any, infer V>
+	? V
+	: T extends Set<any>
+	? true
+	: T extends Record<any, infer V>
+	? V
+	: T[keyof T];

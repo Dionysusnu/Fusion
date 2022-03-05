@@ -1,6 +1,15 @@
 import { CanBeState } from "../PubTypes";
-import { KeepArrayMapOrRecord, KeysOfArrayMapOrRecord, PropertyOfArrayMapOrRecord } from "../Types";
+import { KeyType, ValueType } from "../Types";
 
+type MapInputValue<In, OutKey, OutValue> = [In, OutKey] extends [Array<any>, number]
+	? Array<OutValue>
+	: In extends Map<any, any>
+	? Map<OutKey, OutValue>
+	: [In, OutValue] extends [Set<any>, true]
+	? Set<OutKey>
+	: OutKey extends string | number | symbol
+	? Record<OutKey, OutValue>
+	: Map<OutKey, OutValue>;
 export declare interface ForPairs<T> {
 	type: "State";
 	kind: "ForPairs";
@@ -11,7 +20,7 @@ export declare interface ForPairs<T> {
 	get(asDependency?: boolean): T;
 }
 /**
- * TS note: The types for ForPairs may be unsafe. Prefer using ForKeys or ForValues.
+ * **TS note**: The types for ForPairs may be unsafe. Prefer using ForKeys or ForValues.
  *
  * Constructs a new ForPairs object which maps pairs of a table using
  * a `processor` function.
@@ -24,9 +33,6 @@ export declare interface ForPairs<T> {
  */
 export declare function ForPairs<In, OutKey, OutValue, Meta>(
 	input: CanBeState<In>,
-	processor: (
-		key: KeysOfArrayMapOrRecord<In>,
-		value: PropertyOfArrayMapOrRecord<In>,
-	) => LuaTuple<[OutKey, OutValue, Meta]>,
+	processor: (key: KeyType<In>, value: ValueType<In>) => LuaTuple<[OutKey, OutValue, Meta?]>,
 	destructor?: (key: OutKey, value: OutValue) => void,
-): ForPairs<KeepArrayMapOrRecord<In, OutKey, OutValue>>;
+): ForPairs<MapInputValue<In, OutKey, OutValue>>;
