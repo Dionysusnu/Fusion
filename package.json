@@ -9,7 +9,11 @@
 		"eslint-fix": "eslint \"src/**/*.ts\" --fix",
 		"test": "npm run test-build && npm run test-run",
 		"test-build": "rojo build test-runner.project.json -o test.rbxl",
-		"test-run": "run-in-roblox --place test.rbxl --script test-runner/Run.client.lua"
+		"test-run": "run-in-roblox --place test.rbxl --script test-runner/Run.client.lua",
+		"dev-add-version": "copy package.json package-temp.json & for /F \"tokens=*\" %n IN ('git rev-parse --short HEAD') DO (cat package.json | jq --tab \".version |= . + \\\"-dev-%n\\\"\" > package-new.json & move package-new.json package.json)",
+		"dev-undo-version": "move package-temp.json package.json",
+		"dev-publish": "npm test && npm run eslint && npm run dev-add-version && npm publish --tag next & npm run dev-undo-version",
+		"dev-publish-no-test": "npm run eslint && npm run dev-add-version && npm publish --tag next & npm run dev-undo-version"
 	},
 	"keywords": [
 		"roblox",
