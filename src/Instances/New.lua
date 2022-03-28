@@ -10,7 +10,7 @@ local PubTypes = require(Package.PubTypes)
 local defaultProps = require(Package.Instances.defaultProps)
 local semiWeakRef = require(Package.Instances.semiWeakRef)
 local applyInstanceProps = require(Package.Instances.applyInstanceProps)
-local logError= require(Package.Logging.logError)
+local logError = require(Package.Logging.logError)
 
 local function New(className: string)
 	return function(props: PubTypes.PropertyTable): Instance

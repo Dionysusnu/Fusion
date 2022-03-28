@@ -14,8 +14,8 @@ local isSimilar = require(Package.Utility.isSimilar)
 
 local class = {}
 
-local CLASS_METATABLE = {__index = class}
-local WEAK_KEYS_METATABLE = {__mode = "k"}
+local CLASS_METATABLE = { __index = class }
+local WEAK_KEYS_METATABLE = { __mode = "k" }
 
 --[[
 	Returns the value currently stored in this State object.
@@ -54,7 +54,7 @@ local function Value<T>(initialValue: T): Types.State<T>
 		-- if we held strong references to the dependents, then they wouldn't be
 		-- able to get garbage collected when they fall out of scope
 		dependentSet = setmetatable({}, WEAK_KEYS_METATABLE),
-		_value = initialValue
+		_value = initialValue,
 	}, CLASS_METATABLE)
 
 	initDependency(self)

@@ -11,7 +11,7 @@
 local Package = script.Parent
 local PubTypes = require(Package.PubTypes)
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 
 --[[
 	General use types
@@ -27,7 +27,7 @@ export type Error = {
 	type: string, -- replace with "Error" when Luau supports singleton types
 	raw: string,
 	message: string,
-	trace: string
+	trace: string,
 }
 
 --[[
@@ -35,16 +35,11 @@ export type Error = {
 ]]
 
 -- A state object whose value can be set at any time by the user.
-export type State<T> = PubTypes.Value<T> & {
-	_value: T
-}
+export type State<T> = PubTypes.Value<T> & { _value: T }
 
 -- A state object whose value is derived from other objects using a callback.
-export type Computed<T> = PubTypes.Computed<T> & {
-	_oldDependencySet: Set<PubTypes.Dependency>,
-	_callback: () -> T,
-	_value: T
-}
+export type Computed<T> =
+	PubTypes.Computed<T> & { _oldDependencySet: Set<PubTypes.Dependency>, _callback: () -> T, _value: T }
 
 -- A state object whose value is derived from other objects using a callback.
 export type ForPairs<KI, VI, KO, VO, M> = PubTypes.ForPairs<KO, VO> & {
@@ -117,7 +112,7 @@ export type Tween<T> = PubTypes.Tween<T> & {
 	_currentTweenInfo: TweenInfo,
 	_currentTweenDuration: number,
 	_currentTweenStartTime: number,
-	_currentlyAnimating: boolean
+	_currentlyAnimating: boolean,
 }
 
 -- A state object which follows another state object using spring simulation.
@@ -132,15 +127,12 @@ export type Spring<T> = PubTypes.Spring<T> & {
 	_goalValue: T,
 	_currentType: string,
 	_currentValue: T,
-	_springPositions: {number},
-	_springGoals: {number},
-	_springVelocities: {number}
+	_springPositions: { number },
+	_springGoals: { number },
+	_springVelocities: { number },
 }
 
 -- An object which can listen for updates on another state object.
-export type Observer = PubTypes.Observer & {
-	_changeListeners: Set<() -> ()>,
-	_numChangeListeners: number
-}
+export type Observer = PubTypes.Observer & { _changeListeners: Set<() -> ()>, _numChangeListeners: number }
 
 return nil

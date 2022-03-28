@@ -28,18 +28,17 @@ local function springCoefficients(time: number, damping: number, speed: number):
 		--		 + v0(z1 e^(t z1) - z2 e^(t z2))/(z1 - z2)
 
 		local scaledTime = time * speed
-		local alpha = math.sqrt(damping^2 - 1)
+		local alpha = math.sqrt(damping ^ 2 - 1)
 		local scaledInvAlpha = -0.5 / alpha
 		local z1 = -alpha - damping
 		local z2 = 1 / z1
 		local expZ1 = math.exp(scaledTime * z1)
 		local expZ2 = math.exp(scaledTime * z2)
 
-		posPos = (expZ2*z1 - expZ1*z2) * scaledInvAlpha
+		posPos = (expZ2 * z1 - expZ1 * z2) * scaledInvAlpha
 		posVel = (expZ1 - expZ2) * scaledInvAlpha / speed
 		velPos = (expZ2 - expZ1) * scaledInvAlpha * speed
-		velVel = (expZ1*z1 - expZ2*z2) * scaledInvAlpha
-
+		velVel = (expZ1 * z1 - expZ2 * z2) * scaledInvAlpha
 	elseif damping == 1 then
 		-- critically damped spring
 		-- x[t] -> x0(e^-tω)(1+tω) + v0(e^-tω)t
@@ -50,9 +49,8 @@ local function springCoefficients(time: number, damping: number, speed: number):
 
 		posPos = expTerm * (1 + scaledTime)
 		posVel = expTerm * time
-		velPos = expTerm * (-scaledTime*speed)
+		velPos = expTerm * (-scaledTime * speed)
 		velVel = expTerm * (1 - scaledTime)
-
 	else
 		-- underdamped spring
 		-- factored out of the solutions to the characteristic equation:
@@ -62,18 +60,18 @@ local function springCoefficients(time: number, damping: number, speed: number):
 		-- v[t] -> x0(-e^-tζω)(α^2 + ζ^2 ω^2)(Sin[tα])/α
 		--       + v0(e^-tζω)(α Cos[tα] - ζω Sin[tα])/α
 
-		local alpha = math.sqrt(1 - damping^2)
+		local alpha = math.sqrt(1 - damping ^ 2)
 		local invAlpha = 1 / alpha
 		local alphaTime = alpha * time
-		local expTerm = math.exp(-time*damping*speed)
+		local expTerm = math.exp(-time * damping * speed)
 		local sinTerm = expTerm * math.sin(alphaTime)
 		local cosTerm = expTerm * math.cos(alphaTime)
-		local sinInvAlpha = sinTerm*invAlpha
-		local sinInvAlphaDamp = sinInvAlpha*damping
+		local sinInvAlpha = sinTerm * invAlpha
+		local sinInvAlphaDamp = sinInvAlpha * damping
 
 		posPos = sinInvAlphaDamp + cosTerm
 		posVel = sinInvAlpha / speed
-		velPos = (sinInvAlphaDamp*damping + sinTerm*alpha) * -speed
+		velPos = (sinInvAlphaDamp * damping + sinTerm * alpha) * -speed
 		velVel = cosTerm - sinInvAlphaDamp
 	end
 

@@ -15,8 +15,8 @@ local isSimilar = require(Package.Utility.isSimilar)
 
 local class = {}
 
-local CLASS_METATABLE = {__index = class}
-local WEAK_KEYS_METATABLE = {__mode = "k"}
+local CLASS_METATABLE = { __index = class }
+local WEAK_KEYS_METATABLE = { __mode = "k" }
 
 --[[
 	Returns the last cached value calculated by this Computed object.

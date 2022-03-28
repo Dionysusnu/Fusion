@@ -14,10 +14,10 @@ local updateAll = require(Package.Dependencies.updateAll)
 
 local TweenScheduler = {}
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 type Tween = Types.Tween<any>
 
-local WEAK_KEYS_METATABLE = {__mode = "k"}
+local WEAK_KEYS_METATABLE = { __mode = "k" }
 
 -- all the tweens currently being updated
 local allTweens: Set<Tween> = {}
@@ -65,10 +65,6 @@ local function updateAllTweens()
 	end
 end
 
-RunService:BindToRenderStep(
-	"__FusionTweenScheduler",
-	Enum.RenderPriority.First.Value,
-	updateAllTweens
-)
+RunService:BindToRenderStep("__FusionTweenScheduler", Enum.RenderPriority.First.Value, updateAllTweens)
 
 return TweenScheduler

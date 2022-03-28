@@ -20,10 +20,10 @@
 	All other data models are not considered 'accessible' for simplicity.
 ]]
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 
 local dataModels: Set<Instance> = {}
-for _, descendant in ipairs({game, script, plugin}) do
+for _, descendant in ipairs({ game, script, plugin }) do
 	local root = descendant
 	while root.Parent ~= nil do
 		root = root.Parent

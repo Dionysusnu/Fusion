@@ -45,7 +45,12 @@ local function setProperty(instance: Instance, property: string, value: any)
 	end
 end
 
-local function bindProperty(instanceRef: PubTypes.SemiWeakRef, property: string, value: PubTypes.CanBeState<any>, cleanupTasks: {PubTypes.Task})
+local function bindProperty(
+	instanceRef: PubTypes.SemiWeakRef,
+	property: string,
+	value: PubTypes.CanBeState<any>,
+	cleanupTasks: { PubTypes.Task }
+)
 	if xtypeof(value) == "State" then
 		-- value is a state object - assign and observe for changes
 		local willUpdate = false
@@ -74,10 +79,10 @@ local function applyInstanceProps(props: PubTypes.PropertyTable, applyToRef: Pub
 	end
 
 	local specialKeys = {
-		self = {} :: {[PubTypes.SpecialKey]: any},
-		descendants = {} :: {[PubTypes.SpecialKey]: any},
-		ancestor = {} :: {[PubTypes.SpecialKey]: any},
-		observer = {} :: {[PubTypes.SpecialKey]: any}
+		self = {} :: { [PubTypes.SpecialKey]: any },
+		descendants = {} :: { [PubTypes.SpecialKey]: any },
+		ancestor = {} :: { [PubTypes.SpecialKey]: any },
+		observer = {} :: { [PubTypes.SpecialKey]: any },
 	}
 	local cleanupTasks = {}
 

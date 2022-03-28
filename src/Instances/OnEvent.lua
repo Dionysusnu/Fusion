@@ -19,7 +19,7 @@ local function OnEvent(eventName: string): PubTypes.SpecialKey
 	eventKey.kind = "OnEvent"
 	eventKey.stage = "observer"
 
-	function eventKey:apply(callback: any, applyToRef: PubTypes.SemiWeakRef, cleanupTasks: {PubTypes.Task})
+	function eventKey:apply(callback: any, applyToRef: PubTypes.SemiWeakRef, cleanupTasks: { PubTypes.Task })
 		local instance = applyToRef.instance :: Instance
 		local ok, event = pcall(getProperty_unsafe, instance, eventName)
 		if not ok or typeof(event) ~= "RBXScriptSignal" then

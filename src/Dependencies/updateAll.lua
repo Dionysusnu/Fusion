@@ -10,7 +10,7 @@
 local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 type Descendant = (PubTypes.Dependent & PubTypes.Dependency) | PubTypes.Dependent
 
 local function updateAll(ancestor: PubTypes.Dependency)
@@ -23,10 +23,10 @@ local function updateAll(ancestor: PubTypes.Dependency)
 	-- set of all dependents that still need to be updated
 	local needsUpdateSet: Set<Descendant> = {}
 	-- the dependents to be processed now
-	local processNow: {Descendant} = {}
+	local processNow: { Descendant } = {}
 	local processNowSize = 0
 	-- the dependents of the open set to be processed next
-	local processNext: {Descendant} = {}
+	local processNext: { Descendant } = {}
 	local processNextSize = 0
 
 	-- initialise `processNow` with dependents of ancestor

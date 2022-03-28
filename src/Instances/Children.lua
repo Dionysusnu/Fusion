@@ -11,7 +11,7 @@ local logWarn = require(Package.Logging.logWarn)
 local Observer = require(Package.State.Observer)
 local xtypeof = require(Package.Utility.xtypeof)
 
-type Set<T> = {[T]: boolean}
+type Set<T> = { [T]: boolean }
 
 -- Experimental flag: name children based on the key used in the [Children] table
 local EXPERIMENTAL_AUTO_NAMING = false
@@ -21,13 +21,13 @@ Children.type = "SpecialKey"
 Children.kind = "Children"
 Children.stage = "descendants"
 
-function Children:apply(propValue: any, applyToRef: PubTypes.SemiWeakRef, cleanupTasks: {PubTypes.Task})
+function Children:apply(propValue: any, applyToRef: PubTypes.SemiWeakRef, cleanupTasks: { PubTypes.Task })
 	local newParented: Set<Instance> = {}
 	local oldParented: Set<Instance> = {}
 
 	-- save disconnection functions for state object observers
-	local newDisconnects: {[PubTypes.StateObject<any>]: () -> ()} = {}
-	local oldDisconnects: {[PubTypes.StateObject<any>]: () -> ()} = {}
+	local newDisconnects: { [PubTypes.StateObject<any>]: () -> () } = {}
+	local oldDisconnects: { [PubTypes.StateObject<any>]: () -> () } = {}
 
 	local updateQueued = false
 	local queueUpdate: () -> ()
@@ -64,7 +64,6 @@ function Children:apply(propValue: any, applyToRef: PubTypes.SemiWeakRef, cleanu
 				if EXPERIMENTAL_AUTO_NAMING and autoName ~= nil then
 					child.Name = autoName
 				end
-
 			elseif kind == "State" then
 				-- case 2; state object
 
@@ -85,7 +84,6 @@ function Children:apply(propValue: any, applyToRef: PubTypes.SemiWeakRef, cleanu
 				end
 
 				newDisconnects[child] = disconnect
-
 			elseif kind == "table" then
 				-- case 3; table of objects
 
@@ -101,7 +99,6 @@ function Children:apply(propValue: any, applyToRef: PubTypes.SemiWeakRef, cleanu
 
 					processChild(subChild, subAutoName)
 				end
-
 			else
 				logWarn("unrecognisedChildType", kind)
 			end
