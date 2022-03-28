@@ -40,7 +40,14 @@ local function unpackType(value: any, typeString: string): { number }
 	elseif typeString == "PhysicalProperties" then
 		return { value.Density, value.Friction, value.Elasticity, value.FrictionWeight, value.ElasticityWeight }
 	elseif typeString == "Ray" then
-		return { value.Origin.X, value.Origin.Y, value.Origin.Z, value.Direction.X, value.Direction.Y, value.Direction.Z }
+		return {
+			value.Origin.X,
+			value.Origin.Y,
+			value.Origin.Z,
+			value.Direction.X,
+			value.Direction.Y,
+			value.Direction.Z,
+		}
 	elseif typeString == "Rect" then
 		return { value.Min.X, value.Min.Y, value.Max.X, value.Max.Y }
 	elseif typeString == "Region3" then

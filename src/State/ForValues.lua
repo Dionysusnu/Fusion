@@ -144,7 +144,7 @@ function class:update(): boolean
 			if shouldRecalculate then
 				-- step 1: clean up cached value(s), because they are no longer any good
 				-- this also tells future runs to calculate a fresh output value
-				cachedValue = if type(cachedValue) == "table" then cachedValue else {cachedValue}
+				cachedValue = if type(cachedValue) == "table" then cachedValue else { cachedValue }
 
 				for _, outputValue in ipairs(cachedValue) do
 					-- clean up the old calculated value

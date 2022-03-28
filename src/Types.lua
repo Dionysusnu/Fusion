@@ -39,7 +39,8 @@ export type State<T> = PubTypes.Value<T> & { _value: T }
 
 -- A state object whose value is derived from other objects using a callback.
 export type Computed<T> =
-	PubTypes.Computed<T> & { _oldDependencySet: Set<PubTypes.Dependency>, _callback: () -> T, _value: T }
+	PubTypes.Computed<T>
+	& { _oldDependencySet: Set<PubTypes.Dependency>, _callback: () -> T, _value: T }
 
 -- A state object whose value is derived from other objects using a callback.
 export type ForPairs<KI, VI, KO, VO, M> = PubTypes.ForPairs<KO, VO> & {

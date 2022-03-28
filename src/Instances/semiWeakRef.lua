@@ -21,12 +21,12 @@ local STRONG_MODE = { __mode = "" }
 -- Because the semi-weak refs are stored strongly here, the instance keys won't
 -- garbage collect unless the semi-weak ref is weak, which only occurs when the
 -- instance is not accessible.
-local cachedRefs: {[Instance]: PubTypes.SemiWeakRef} = {}
-setmetatable(cachedRefs, { __mode = "k"})
+local cachedRefs: { [Instance]: PubTypes.SemiWeakRef } = {}
+setmetatable(cachedRefs, { __mode = "k" })
 
 local function semiWeakRef_impl(strongReferTo: Instance?): PubTypes.SemiWeakRef
 	if strongReferTo == nil then
-		return {type = "SemiWeakRef", instance = nil}
+		return { type = "SemiWeakRef", instance = nil }
 	else
 		if cachedRefs[strongReferTo] then
 			return cachedRefs[strongReferTo]
@@ -34,7 +34,7 @@ local function semiWeakRef_impl(strongReferTo: Instance?): PubTypes.SemiWeakRef
 
 		local ref: PubTypes.SemiWeakRef = {
 			type = "SemiWeakRef",
-			instance = strongReferTo
+			instance = strongReferTo,
 		}
 		cachedRefs[strongReferTo] = ref
 
