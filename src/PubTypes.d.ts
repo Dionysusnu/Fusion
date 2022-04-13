@@ -95,22 +95,21 @@ export type ChildrenValue =
 
 /** A table that defines an instance's properties, handlers and children. */
 export type PropertyTable<T extends Instance> = Partial<
-	| {
-			[K in keyof WritableInstanceProperties<T>]:
-				| CanBeState<WritableInstanceProperties<T>[K]>;
-	  }
-	| {
+	{
+		[K in keyof WritableInstanceProperties<T>]: CanBeState<WritableInstanceProperties<T>[K]>;
+	} &
+		{
 			[K in InstancePropertyNames<T> as OnChangeSymbol<K>]: (newValue: T[K]) => void;
-	  }
-	| {
+		} &
+		{
 			[K in InstancePropertyNames<T> as OutSymbol<K>]: Value<T[K]>;
-	  }
-	| {
+		} &
+		{
 			[K in InstanceEventNames<T> as OnEventSymbol<K>]: T[K] extends RBXScriptSignal<infer C>
 				? (...args: Parameters<C>) => void
 				: never;
-	  }
-	| Record<ChildrenSymbol, ChildrenValue>
-	| Record<CleanupSymbol, Task>
-	| Record<RefSymbol, Value<Instance | undefined>>
+		} &
+		Record<ChildrenSymbol, ChildrenValue> &
+		Record<CleanupSymbol, Task> &
+		Record<RefSymbol, Value<Instance | undefined>>
 >;
