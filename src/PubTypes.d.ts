@@ -97,8 +97,7 @@ export type ChildrenValue =
 export type PropertyTable<T extends Instance> = Partial<
 	| {
 			[K in keyof WritableInstanceProperties<T>]:
-				| WritableInstanceProperties<T>[K]
-				| StateObject<WritableInstanceProperties<T>[K]>;
+				| CanBeState<WritableInstanceProperties<T>[K]>;
 	  }
 	| {
 			[K in InstancePropertyNames<T> as OnChangeSymbol<K>]: (newValue: T[K]) => void;
