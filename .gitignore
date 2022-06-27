@@ -10,5 +10,8 @@
 # Ignore site folder
 /site/
 
+# Ignore selene auto-generated config
+roblox.toml
+
 # Ignore npm dependencies
 node_modules/
