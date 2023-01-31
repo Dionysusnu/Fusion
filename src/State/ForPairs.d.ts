@@ -34,5 +34,5 @@ export declare interface ForPairs<T> {
 export declare function ForPairs<In, OutKey, OutValue, Meta>(
 	input: CanBeState<In>,
 	processor: (key: KeyType<In>, value: ValueType<In>) => LuaTuple<[OutKey, OutValue, Meta?]>,
-	destructor?: (key: OutKey, value: OutValue) => void,
+	destructor?: (key: OutKey, value: OutValue, meta: Meta) => void,
 ): ForPairs<MapInputValue<In, OutKey, OutValue>>;

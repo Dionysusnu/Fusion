@@ -15,7 +15,6 @@ import {
 	Dependency,
 	Dependent,
 	PropertyTable,
-	SemiWeakRef,
 	SpecialKey,
 	StateObject,
 	Task,
@@ -27,6 +26,8 @@ import { ForPairs } from "./State/ForPairs";
 import { ForValues } from "./State/ForValues";
 import { Observer } from "./State/Observer";
 import { Value } from "./State/Value";
+import { cleanup } from "./Utility/cleanup";
+import { doNothing } from "./Utility/doNothing";
 
 declare namespace Fusion {
 	// State
@@ -41,7 +42,6 @@ declare namespace Fusion {
 		Dependency,
 		Dependent,
 		PropertyTable,
-		SemiWeakRef,
 		SpecialKey,
 		StateObject,
 		Task,
@@ -51,6 +51,8 @@ declare namespace Fusion {
 	export { Children, Cleanup, OnChange, OnEvent, Out, Ref };
 	// Instances
 	export { Hydrate, New };
+	// Destructors
+	export { cleanup, doNothing };
 	// Misc
 	export const version: Version;
 }

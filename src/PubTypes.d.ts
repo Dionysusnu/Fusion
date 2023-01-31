@@ -65,18 +65,12 @@ export type StateObject<T> = {
 /** Either a constant value of type T, or a state object containing type T. */
 export type CanBeState<T> = StateObject<T> | T;
 
-/** A semi-weak instance reference. */
-export type SemiWeakRef = {
-	type: "SemiWeakRef";
-	instance: Instance | undefined;
-};
-
 /** Denotes children instances in an instance or component's property table. */
 export type SpecialKey = {
 	type: "SpecialKey";
 	kind: string;
 	stage: "self" | "descendants" | "ancestor" | "observer";
-	apply(propValue: any, applyTo: SemiWeakRef, cleanupTasks: Array<Task>): void;
+	apply(propValue: any, applyTo: Instance, cleanupTasks: Array<Task>): void;
 };
 
 /** A collection of instances that may be parented to another instance. */

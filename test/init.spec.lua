@@ -26,6 +26,9 @@ return function()
 
 			Tween = "function",
 			Spring = "function",
+
+			cleanup = "function",
+			doNothing = "function"
 		}
 
 		for apiName, apiType in pairs(api) do

@@ -20,14 +20,14 @@ export declare interface ForKeys<T> {
 	get(asDependency?: boolean): T;
 }
 /**
- * Constructs a new ForKeys object which maps keys of a table using
+ * Constructs a new ForKeys state object which maps keys of an array using
  * a `processor` function.
  *
- * Optionally, a `destructor` function can be specified for cleaning up values.
- * If omitted, the default cleanup function will be used instead.
+ * Optionally, a `destructor` function can be specified for cleaning up
+ * calculated keys. If omitted, the default cleanup function will be used instead.
  *
- * Additionally, a `meta` table/value can optionally be returned to pass data created
- * when running the processor to the destructor when the created object is cleaned up.
+ * Optionally, a `meta` value can be returned in the processor function as the
+ * second value to pass data from the processor to the destructor.
  */
 export declare function ForKeys<In, Out, Meta>(
 	input: CanBeState<In>,
