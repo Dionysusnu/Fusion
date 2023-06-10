@@ -15,3 +15,6 @@ roblox.toml
 
 # Ignore npm dependencies
 node_modules/
+
+# Ignore sourcemap
+sourcemap.json
