@@ -1,4 +1,6 @@
-export declare interface Computed<T> {
+import { StateObject } from "../PubTypes";
+
+export declare interface Computed<T> extends StateObject<T> {
 	type: "State";
 	kind: "Computed";
 	/**

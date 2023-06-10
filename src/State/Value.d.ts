@@ -1,4 +1,6 @@
-export declare interface Value<T> {
+import { StateObject } from "../PubTypes";
+
+export declare interface Value<T> extends StateObject<T> {
 	type: "State";
 	kind: "Value";
 	/**

@@ -1,4 +1,4 @@
-import { CanBeState } from "../PubTypes";
+import { CanBeState, StateObject } from "../PubTypes";
 import { ValueType } from "../Types";
 
 type MapInputValue<In, Out> = In extends Array<any>
@@ -10,7 +10,7 @@ type MapInputValue<In, Out> = In extends Array<any>
 	: In extends Record<infer K, any>
 	? Record<K, Out>
 	: Record<keyof In, Out>;
-export declare interface ForValues<T> {
+export declare interface ForValues<T> extends StateObject<T> {
 	type: "State";
 	kind: "ForValues";
 	/**

@@ -1,6 +1,6 @@
 import { CanBeState, StateObject } from "../PubTypes";
 
-export declare interface Spring<T> {
+export declare interface Spring<T> extends StateObject<T> {
 	type: "State";
 	kind: "Spring";
 	/**
