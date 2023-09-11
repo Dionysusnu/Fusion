@@ -26,6 +26,11 @@
 			"url": "https://github.com/Dionysusnu"
 		}
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Dionysusnu/Fusion.git"
+	},
+	"bugs": "https://github.com/Dionysusnu/Fusion/issues",
 	"author": "Elttob",
 	"license": "MIT",
 	"devDependencies": {
