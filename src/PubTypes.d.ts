@@ -34,7 +34,8 @@ export type Task =
 	| (() => void)
 	| { destroy: () => void }
 	| { Destroy: () => void }
-	| Array<Task>;
+	| Array<Task>
+	| undefined;
 
 /** Script-readable version information. */
 export type Version = {
