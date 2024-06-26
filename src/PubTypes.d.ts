@@ -34,8 +34,7 @@ export type Task =
 	| (() => void)
 	| { destroy: () => void }
 	| { Destroy: () => void }
-	| Array<Task>
-	| undefined;
+	| Array<Task>;
 
 /** Script-readable version information. */
 export type Version = {
@@ -105,6 +104,6 @@ export type PropertyTable<T extends Instance> = Partial<
 				: never;
 		} &
 		Record<ChildrenSymbol, ChildrenValue> &
-		Record<CleanupSymbol, Task> &
+		Record<CleanupSymbol, Task | undefined> &
 		Record<RefSymbol, Value<Instance | undefined>>
 >;
