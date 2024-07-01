@@ -13,6 +13,7 @@
 		"moduleResolution": "node",
 		// required, configurable
 		"rootDir": "src",
+		// do not define outDir, to ensure roblox-ts can't compile
 		// optional
 		"declaration": true,
 		"incremental": false,
