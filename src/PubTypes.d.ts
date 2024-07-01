@@ -91,19 +91,15 @@ export type ChildrenValue =
 export type PropertyTable<T extends Instance> = Partial<
 	{
 		[K in keyof WritableInstanceProperties<T>]: CanBeState<WritableInstanceProperties<T>[K]>;
-	} &
-		{
-			[K in InstancePropertyNames<T> as OnChangeSymbol<K>]: (newValue: T[K]) => void;
-		} &
-		{
-			[K in InstancePropertyNames<T> as OutSymbol<K>]: Value<T[K]>;
-		} &
-		{
-			[K in InstanceEventNames<T> as OnEventSymbol<K>]: T[K] extends RBXScriptSignal<infer C>
-				? (...args: Parameters<C>) => void
-				: never;
-		} &
-		Record<ChildrenSymbol, ChildrenValue> &
+	} & {
+		[K in InstancePropertyNames<T> as OnChangeSymbol<K>]: (newValue: T[K]) => void;
+	} & {
+		[K in InstancePropertyNames<T> as OutSymbol<K>]: Value<T[K]>;
+	} & {
+		[K in InstanceEventNames<T> as OnEventSymbol<K>]: T[K] extends RBXScriptSignal<infer C>
+			? (...args: Parameters<C>) => void
+			: never;
+	} & Record<ChildrenSymbol, ChildrenValue> &
 		Record<CleanupSymbol, Task | undefined> &
 		Record<RefSymbol, Value<Instance | undefined>>
 >;
