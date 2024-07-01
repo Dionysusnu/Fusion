@@ -33,7 +33,7 @@ local function jsx(element, props, children)
 			end
 		end
 		local elementName = string.upper(string.sub(element, 1, 1)) .. string.sub(element, 2)
-		return New(element)(props)
+		return New(elementName)(props)
 	end
 end
 
