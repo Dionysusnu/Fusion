@@ -1,15 +1,16 @@
 import { CanBeState } from "../PubTypes";
 import { ValueType } from "../Types";
 
-type MapInputValue<In, Out> = In extends Array<any>
-	? Array<Out>
-	: In extends Map<infer K, any>
-	? Map<K, Out>
-	: In extends Set<infer K>
-	? Map<K, Out>
-	: In extends Record<infer K, any>
-	? Record<K, Out>
-	: Record<keyof In, Out>;
+type MapInputValue<In, Out> =
+	In extends Array<any>
+		? Array<Out>
+		: In extends Map<infer K, any>
+			? Map<K, Out>
+			: In extends Set<infer K>
+				? Map<K, Out>
+				: In extends Record<infer K, any>
+					? Record<K, Out>
+					: Record<keyof In, Out>;
 export declare interface ForValues<T> {
 	type: "State";
 	kind: "ForValues";

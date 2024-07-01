@@ -4,12 +4,12 @@ import { KeyType, ValueType } from "../Types";
 type MapInputValue<In, OutKey, OutValue> = [In, OutKey] extends [Array<any>, number]
 	? Array<OutValue>
 	: In extends Map<any, any>
-	? Map<OutKey, OutValue>
-	: [In, OutValue] extends [Set<any>, true]
-	? Set<OutKey>
-	: OutKey extends string | number | symbol
-	? Record<OutKey, OutValue>
-	: Map<OutKey, OutValue>;
+		? Map<OutKey, OutValue>
+		: [In, OutValue] extends [Set<any>, true]
+			? Set<OutKey>
+			: OutKey extends string | number | symbol
+				? Record<OutKey, OutValue>
+				: Map<OutKey, OutValue>;
 export declare interface ForPairs<T> {
 	type: "State";
 	kind: "ForPairs";
