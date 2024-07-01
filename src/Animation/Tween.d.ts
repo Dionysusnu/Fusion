@@ -1,4 +1,4 @@
-import { Animatable, CanBeState, StateObject } from "../PubTypes";
+import { CanBeState, StateObject } from "../PubTypes";
 
 export declare interface Tween<T> {
 	type: "State";
