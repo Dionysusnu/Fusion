@@ -1,6 +1,7 @@
-import { MergeStrings } from "../Types";
+import { MergeStrings, MergeStringsJsx } from "../Types";
 
 export type OnEventSymbol<K> = MergeStrings<"OnEvent", K>;
+export type OnEventJsx<K> = MergeStringsJsx<"OnEvent", K>;
 /**
  * Constructs special keys for property tables which connect event listeners to
  * an instance.

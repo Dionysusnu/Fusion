@@ -1,10 +1,32 @@
-import { Children, ChildrenSymbol } from "../Instances/Children";
-import { ChildrenValue, PropertyTable } from "../PubTypes";
+import { Children, ChildrenJsx, ChildrenSymbol } from "../Instances/Children";
+import { CanBeState, ChildrenValue, Task } from "../PubTypes";
+import { Value } from "../State/Value";
+import { CleanupJsx } from "./Cleanup";
+import { OnChangeJsx } from "./OnChange";
+import { OnEventJsx } from "./OnEvent";
+import { OutJsx } from "./Out";
+import { RefJsx } from "./Ref";
 
 declare global {
 	namespace JSX {
+		type JsxPropertyTable<T extends Instance> = Partial<
+			{
+				[K in keyof WritableInstanceProperties<T>]: CanBeState<WritableInstanceProperties<T>[K]>;
+			} & {
+				[K in InstancePropertyNames<T> as OutJsx<K>]: Value<T[K]>;
+			} & {
+				[K in InstancePropertyNames<T> as OnChangeJsx<K>]: (newValue: T[K]) => void;
+			} & {
+				[K in InstanceEventNames<T> as OnEventJsx<K>]: T[K] extends RBXScriptSignal<infer C>
+					? (...args: Parameters<C>) => void
+					: never;
+			} & Record<ChildrenJsx, ChildrenValue> &
+				Record<CleanupJsx, Task | undefined> &
+				Record<RefJsx, Value<Instance | undefined>>
+		>;
+
 		type IntrinsicElements = {
-			[K in keyof CreatableInstances as Uncapitalize<K>]: PropertyTable<CreatableInstances[K]>;
+			[K in keyof CreatableInstances as Uncapitalize<K>]: JsxPropertyTable<CreatableInstances[K]>;
 		};
 
 		// This ensures excess attributes are caught if the component doesn't accept them

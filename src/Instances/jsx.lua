@@ -1,9 +1,11 @@
 local Package = script.Parent.Parent
 local New = require(Package.Instances.New)
 local Children = require(Package.Instances.Children)
+local Cleanup = require(Package.Instances.Cleanup)
 local OnChange = require(Package.Instances.OnChange)
 local OnEvent = require(Package.Instances.OnEvent)
 local Out = require(Package.Instances.Out)
+local Ref = require(Package.Instances.Ref)
 
 local function jsx(element, props, children)
 	props[Children] = children
@@ -25,6 +27,12 @@ local function jsx(element, props, children)
 					newKey = OnEvent(key)
 				elseif namespace == "Out" then
 					newKey = Out(key)
+				elseif key == "Children" then
+					newKey = Children
+				elseif key == "Cleanup" then
+					newKey = Cleanup
+				elseif key == "Ref" then
+					newKey = Ref
 				end
 				if newKey then
 					props[newKey] = v
