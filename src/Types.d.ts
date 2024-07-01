@@ -4,13 +4,15 @@ export type MergeStrings<S extends string, K> = K extends string | number | bigi
 
 export type KeysOfArrayMapOrRecord<I> = I extends Array<any> ? number : I extends Map<infer K, any> ? K : keyof I;
 export type PropertyOfArrayMapOrRecord<I> = I extends Array<infer T> ? T : I extends Map<any, infer V> ? V : I[keyof I];
-export type KeepArrayMapOrRecord<I, NewKey, NewValue> = I extends Array<infer V>
+export type KeepArrayMapOrRecord<I, NewKey, NewValue> =
+	I extends Array<infer V>
 	? Array<NewValue>
 	: I extends Map<infer K, any>
 	? Map<NewKey, NewValue>
 	: Record<keyof I, NewValue>;
 
-export type KeyType<T> = T extends Array<any>
+export type KeyType<T> =
+	T extends Array<any>
 	? number
 	: T extends Map<infer K, any>
 	? K
@@ -19,7 +21,8 @@ export type KeyType<T> = T extends Array<any>
 	: T extends Record<infer K, any>
 	? K
 	: keyof T;
-export type ValueType<T> = T extends Array<infer V>
+export type ValueType<T> =
+	T extends Array<infer V>
 	? V
 	: T extends Map<any, infer V>
 	? V
