@@ -7,8 +7,13 @@
 		"sourceType": "module",
 		"project": ["tsconfig.json"],
 	},
-	"plugins": ["@typescript-eslint/eslint-plugin", "prettier", "simple-import-sort"],
-	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+	"plugins": ["simple-import-sort"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended",
+		"plugin:eslint-comments/recommended",
+	],
 	"rules": {
 		"prettier/prettier": "warn",
 		"@typescript-eslint/array-type": [
