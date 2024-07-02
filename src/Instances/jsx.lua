@@ -7,8 +7,16 @@ local OnEvent = require(Package.Instances.OnEvent)
 local Out = require(Package.Instances.Out)
 local Ref = require(Package.Instances.Ref)
 
-local function jsx(element, props, children)
-	props[Children] = children
+local function jsx(element, props, ...)
+	local children = table.pack(...)
+	if children.n == 0 then
+		-- TS type `[]` is not usable in JSX, so optional children are always with undefined
+		-- So leave the property empty as well
+	elseif children.n == 1 then
+		props[Children] = children[1]
+	else
+		props[Children] = children
+	end
 
 	if typeof(element) ~= "string" then
 		return element(props)
