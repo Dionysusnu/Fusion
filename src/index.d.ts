@@ -3,6 +3,7 @@ import { Tween } from "./Animation/Tween";
 import { Children } from "./Instances/Children";
 import { Cleanup } from "./Instances/Cleanup";
 import { Hydrate } from "./Instances/Hydrate";
+import { jsx } from "./Instances/jsx";
 import { New } from "./Instances/New";
 import { OnChange } from "./Instances/OnChange";
 import { OnEvent } from "./Instances/OnEvent";
@@ -50,7 +51,7 @@ declare namespace Fusion {
 	// Default SpecialKeys
 	export { Children, Cleanup, OnChange, OnEvent, Out, Ref };
 	// Instances
-	export { Hydrate, New };
+	export { Hydrate, jsx, New };
 	// Destructors
 	export { cleanup, doNothing };
 	// Misc

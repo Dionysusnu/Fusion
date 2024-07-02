@@ -13,7 +13,7 @@
 		"moduleResolution": "node",
 		// required, configurable
 		"rootDir": "src",
-		"outDir": "out",
+		// do not define outDir, to ensure roblox-ts can't compile
 		// optional
 		"declaration": true,
 		"incremental": false,
@@ -21,8 +21,8 @@
 		// optional, non-configurable
 		"jsx": "react",
 		"jsxFactory": "Fusion.createElement",
-		"jsxFragmentFactory": "Fusion.createFragment",
 		// not roblox-ts specific
-		"stripInternal": true
+		"stripInternal": true,
+		"exactOptionalPropertyTypes": true
 	}
 }

@@ -50,6 +50,7 @@ return restrictRead("Fusion", {
 
 	New = require(script.Instances.New),
 	Hydrate = require(script.Instances.Hydrate),
+	jsx = require(script.Instances.jsx),
 	Ref = require(script.Instances.Ref),
 	Out = require(script.Instances.Out),
 	Cleanup = require(script.Instances.Cleanup),
