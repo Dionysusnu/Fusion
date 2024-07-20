@@ -5,24 +5,34 @@
     - navigation
 ---
 
+
+
+
+
+
+
 <div id="fusiondoc-home" markdown>
 <section id="fusiondoc-home-main">
 <section id="fusiondoc-home-main-inner">
-<h1>Rediscover the joy of UI.</h1>
+<h1>Rediscover the joy of coding.</h1>
 <p>
-Fusion is a UI, state management and animation library for Roblox. With Fusion,
-you define declaratively what you want to see, rather than the steps the
-computer should take to get there.
+Code is more dynamic, complex and intertwined than ever before. Errors cascade
+out of control, things update in the wrong order, and it's all connected by
+difficult, unreadable spaghetti.
 </p>
 <p>
-Starting from simple roots, concepts neatly combine and build up, so there’s
-very little learning curve. At every stage, you can robustly guarantee what your
-code will do - and when you come back in six months, Fusion code is designed to
-be easy to pick back up.
+No longer. Fusion introduces modern 'reactive' concepts for managing code, so
+you can spend more time getting your logic right, and less time implementing
+buggy boilerplate code connections.
+</p>
+<p>
+Starting from simple roots, concepts neatly combine and build up with very little
+learning curve. At every stage, you can robustly guarantee what your code will
+do, and when you come back in six months, your code is easy to pick back up.
 </p>
 <nav>
-<a href="./tutorials">Get started</a>
-<a href="https://github.com/Elttob/Fusion/releases">Download Fusion</a>
+<a href="./tutorials">Getting started guide</a>
+<a href="https://github.com/Elttob/Fusion/releases">Download</a>
 </nav>
 </section>
 </section>
@@ -55,9 +65,9 @@ local currentTimeObj = getCurrentTimeStateObject()
 print(typeof(currentTimeObj)) --> table
 
 -- ...and you can peek at their value (or ‘state’) at any time.
-print(currentTimeObj:get()) --> 0.0
+print(peek(currentTimeObj)) --> 0.0
 task.wait(5)
-print(currentTimeObj:get()) --> 5.0
+print(peek(currentTimeObj)) --> 5.0
 ```
 
 You can write out your logic using Fusion's built-in state objects.
@@ -70,8 +80,8 @@ local myName = Value("Daniel")
 
 -- This creates a state object from a calculation.
 -- It determines its own value automatically.
-local myGreeting = Computed(function()
-	return "Hello! My name is " .. myName:get()
+local myGreeting = scope:Computed(function(use)
+	return "Hello! My name is " .. use(myName)
 end)
 ```
 
@@ -84,7 +94,7 @@ local myObserver = Observer(myGreeting)
 
 -- Let’s print out the greeting when there’s a new one.
 local disconnect = myObserver:onChange(function()
-	print(myGreeting:get())
+	print(peek(myGreeting))
 end)
 
 -- This will run the code above!
@@ -187,14 +197,14 @@ your program. That means it's easy to process them afterwards.
 
 ```Lua
 -- You can round the animated health to whole numbers.
-local wholeHealth = Computed(function()
-	return math.round(health:get())
+local wholeHealth = scope:Computed(function(use)
+	return math.round(use(health))
 end)
 
 -- You can format it as text and put it in some UI, too.
 local myText = New "TextLabel" {
-	Text = Computed(function()
-		return "Health: " .. wholeHealth:get()
+	Text = scope:Computed(function(use)
+		return "Health: " .. use(wholeHealth)
 	end)
 }
 ```
@@ -208,8 +218,8 @@ local TWEEN_FAST = TweenInfo.new(0.5, Enum.EasingStyle.Elastic)
 local TWEEN_SLOW = TweenInfo.new(2, Enum.EasingStyle.Sine)
 
 -- Choose more dramatic styles at low health...
-local style = Computed(function()
-	return if health:get() < 20 then TWEEN_FAST else TWEEN_SLOW
+local style = scope:Computed(function(use)
+	return if use(health) < 20 then TWEEN_FAST else TWEEN_SLOW
 end)
 
 -- Plug it right into your animation!
